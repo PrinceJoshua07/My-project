@@ -28,7 +28,7 @@ jobs:
       - name: Set image variables
         run: |
           echo "ECR_REGISTRY=769449464695.dkr.ecr.ap-southeast-2.amazonaws.com" >> "$GITHUB_ENV"
-          echo "IMAGE_TAG=v-${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+          echo "IMAGE_TAG=v-${GITHUB_SHA::7}-${GITHUB_RUN_NUMBER}" >> "$GITHUB_ENV"
 
       - name: Build frontend image
         run: |
