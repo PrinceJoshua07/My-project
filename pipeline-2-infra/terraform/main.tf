@@ -73,7 +73,7 @@ module "security_group" {
       from_port   = 22
       to_port     = 22
       ip_protocol = "tcp"
-      cidr_ipv4   = "49.37.215.102/32"
+      cidr_ipv4   = "0.0.0.0/0"
       description = "SSH access from my IP"
     }
 
