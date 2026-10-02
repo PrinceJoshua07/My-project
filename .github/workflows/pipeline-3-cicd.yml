@@ -63,11 +63,12 @@ jobs:
           printf '%s\n' "$EC2_SSH_KEY" > "$HOME/.ssh/mykey-1.pem"
           chmod 600 "$HOME/.ssh/mykey-1.pem"
 
-          ssh-keyscan -H "$EC2_HOST" >> "$HOME/.ssh/known_hosts"
+          ssh-keyscan -H "$EC2_HOST" >> "$HOME/.ssh/known_hosts" 2>/dev/null || true
 
           MONGODB_URI_ESCAPED=$(printf '%q' "$MONGODB_URI")
 
-          ssh -i "$HOME/.ssh/mykey-1.pem" \
+          ssh -o StrictHostKeyChecking=no \
+            -i "$HOME/.ssh/mykey-1.pem" \
             ec2-user@"$EC2_HOST" \
             "ECR_REGISTRY='$ECR_REGISTRY' IMAGE_TAG='$IMAGE_TAG' MONGODB_URI=$MONGODB_URI_ESCAPED bash -s" <<REMOTE_SCRIPT
           set -e
